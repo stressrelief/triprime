@@ -14,12 +14,17 @@ P32 = (2**256)+1
 # Global funcs
 
 
-
-#Given a data size, in bytes, calculate a composite of sufficient bit width
-#to allow for that data and a random of at least 256 bit size (32 byte) to
-#be padded and embedded into the given bases derived from that composite
-#after simulating potential data values within data's size
-#
+# D = a fixed data size.
+# P0 = a prime larger than D, with a known MMI pair (modular 
+# multiplicative inverse: P0(mmi,`mmi)).
+# P1 = a prime larger than... D + size(P0), with a known MMI pair.
+# P2 = a prime larger than... size(P1 * 2), with a known MMI pair.
+# Assume D and P0 are known.
+# Public: P0(mmi) * P1(mmi) * P2(mmi), P2
+# Private: P2(`mmi), P1(`mmi), P0(`mmi), P1
+# Encrypt: data * P0(mmi) * P1(mmi) * P2(mmi) mod P2
+# Decrypt: [Exercise left for the reader.]
+# Everything below this comment is probably trash.
 class MC ( ) :
     def __init__ ( self, data_sz=32 ) :
         # P32 is a global 'prime' able to encapsulate the data segment.
