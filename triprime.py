@@ -10,9 +10,53 @@ P64 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
        223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283,
        293, 307, 311]
 
-P32 = (2**256)+1
+# P32 = (2**256)+1    # 
+P16 = (2**16)+1     # 65537
+P8 = (2**8)+1       # 257
+P4 = (2**4)+1       # 17
 # Global funcs
-
+def findmmi ( prime, x=None ) :
+    a = prime - 1
+    b = prime + 1
+    if x != None :
+        c = (b // x) - 1 # c = 2
+        if c == 0 :
+            c = b // 2
+            print c, prime, (prime - c), b.bit_length()
+            while (x * c) % prime != 1 :
+                c -= 1
+                if c < 2 : return "Error0"
+            return c
+        print c, prime, (prime - c), b.bit_length()
+        while (x * c) % prime != 1 :
+            c += 1
+            if c > prime : return "Error1"
+        return c
+    #
+        
+    c,d = [i for i in range(2,b)], [i for i in range(2,b)]
+    ret = {}
+    if ( a * a ) % prime == 1 :
+        ret[a] = a
+        # Modified for test2 function testing
+        #ret[0] = prime
+        #
+        c.remove(a)
+        d.remove(a)
+    else : return "Not prime."
+    for i in c :
+        for n in d :
+            if ( i * n ) % prime == 1 :
+                ret[i] = n
+                d.remove(n)
+                #d.remove(i)
+                break
+            #
+        #
+    #
+    return ret
+    #
+#
 
 # D = a fixed data size.
 # P0 = a prime larger than D, with a known MMI pair (modular 
@@ -24,33 +68,59 @@ P32 = (2**256)+1
 # Private: P2(`mmi), P1(`mmi), P0(`mmi), P1
 # Encrypt: data * P0(mmi) * P1(mmi) * P2(mmi) mod P2
 # Decrypt: [Exercise left for the reader.]
-# Everything below this comment is probably trash.
-class MC ( ) :
-    def __init__ ( self, data_sz=32 ) :
-        # P32 is a global 'prime' able to encapsulate the data segment.
-        # p0 is a secret 'prime' that encodes the data in a known way...
-        # while allowing space for a sufficient random segment. p0, ...
-        # and probably its `mmi can be exposed in the public key, as ...
-        # long as the encoding scheme is stored privately. This would...
-        # mean multiplication by p0(mmi,`mmi) during encryption.
-        # p1 is an exposed 'prime' that is used for modular reduction...
-        # of the encoded segments. Its `mmi is private.
-        # Public: p0(mai),P32(mmi,`mmi) * p0(mmi) * p1(mmi),p1
-        # Private: p0(`mai),p0(`mmi) * p1(`mmi),scheme
+
+# class object containing basic methods for generating a proper keypair,
+# encrypting some data, and decrypting that data.
+class Triprime ( ) :
+    def __init__ ( self, data_sz=4 ) :
         if type(data_sz) in [int, long] :
-            # 256 bits, to be used with P32
-            x = ((data_sz+32) * 4)
-            # 512 - 1024 bit range for p0 generation
-            self.p0min = x * 2
-            self.p0max = self.p0min * 2
-            # 2048 - 4096 bit range for p1 generation
-            self.p1min = self.p0max * 2
-            self.p1max = self.p1min * 2
-            #
+            # 
+            x = 2**data_sz
+            y = x * x
+            z = y * y
+            self.pfloor = x,y,z # Ew! Gross!
+            # Simple demonstration
+            # Overrides functionality... remove.
+            self.public, self.private, self.cipher = {}, {}, {}
+            self.ds = 4
+            self.p0 = P4
+            self.p0i = findmmi(self.p0)
+            self.p1 = P8 # But it's totally a secret... shh...
+            self.p1i = findmmi(self.p1)
+            self.p2 = P16
+            #self.p2i = findmmi(self.p2)
         else : return None
         #
     #
-    def test ( self, x, y, z=5 ) :
+    def genkeypair ( self, mode=0 ) :
+        if mode in [0] : # Take that!
+            #
+            w = len(self.private)
+            x = SR().choice(self.p0i)
+            y = SR().choice(self.p1i)
+            z = SR().choice(self.p2i)
+            self.private[w] = self.p0i[x], self.p1i[y], self.p2i[z],self.p1
+            self.public[w] = x * y * z, self.p2
+            #
+        #
+    #
+    def encrypt ( self, pubkey ) :
+        #
+        print "Data must be an integer, between 1 and 16."
+        print "(Data is not padded in any secure way."
+        while 1 :
+            data = int(raw_input("Data : "))
+            if 0 < data < self.p0 :
+                x, y = pubkey[0], pubkey[1]
+                self.cipher[len(self.cipher)] = (data * x) % y
+                break
+            else : print "Data must be an integer, between 1 and 16."
+        #
+    #
+    def decrypt ( self, seckey ) :
+        pass
+    #
+"""    def test ( self, x, y, z=5 ) :
         ret = {}
         #while 1 :
         for i in P64 :
@@ -128,14 +198,30 @@ class MC ( ) :
     #
         #
     #
+"""
+# I need to dig thru the above ^^^
+
 if __name__ == '__main__' :
-    a = MC()
-    a.GenerateP0()
-    print len(a.p0mmi)
+    a = Triprime()
     #
-    #for i in a.p0mmi.keys() :
-        #if i > 1 :
-            #a.p0mmi.update(a.test(i, a.p0mmi[i]))
+    print "Do: a.p2i = findmmi(a.p2)"
+    print "It might take a while..."
+    b = raw_input('Do it?(Y/n)?')
+    if b.lower() in ['n','no'] :
+        pass
+    else : a.p2i = findmmi(a.p2)
+    print "Generating keypair: a.private, a.public dictionaries."
+    a.genkeypair()
+    print "Private: ", a.private
+    print "Public: ", a.public
+    print "Testing encryption..."
+    a.encrypt(a.public[0])
+    print "Ciphertext: ", a.cipher
+    c = (a.cipher * a.private[0][2]) % a.public[0][1]
+    print c
+    c = (c * a.private[0][1]) % a.private[0][3]
+    print c
+    c = (c * a.private[0][0]) % a.p0
+    print c
+    
     #
-    #print len(a.p0mmi)
-# Diarrhea... all of it...            
