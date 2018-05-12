@@ -15,6 +15,21 @@ P16 = (2**16)+1     # 65537
 P8 = (2**8)+1       # 257
 P4 = (2**4)+1       # 17
 # Global funcs
+def Ints2Chrs ( in_ls ) :
+    return [ chr(i) for i in in_ls ]
+#
+def Chrs2Str ( in_ls ) :
+    ret = ''
+    for i in in_ls : ret = ret + i
+    return ret
+#
+def Ints2Str ( in_ls ) :
+    ret = Ints2Chrs(in_ls)
+    return Chrs2Str(ret)
+#
+def Str2Ints ( in_ls ) :
+    return [ int(i.encode("hex"),16) for i in in_ls ]
+#
 def findmmi ( prime, x=None ) :
     a = prime - 1
     b = prime + 1
