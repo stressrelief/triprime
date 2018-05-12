@@ -217,7 +217,7 @@ if __name__ == '__main__' :
     print "Testing encryption..."
     a.encrypt(a.public[0])
     print "Ciphertext: ", a.cipher
-    c = (a.cipher * a.private[0][2]) % a.public[0][1]
+    c = (a.cipher[0] * a.private[0][2]) % a.public[0][1]
     print c
     c = (c * a.private[0][1]) % a.private[0][3]
     print c
