@@ -109,9 +109,8 @@ class Triprime ( ) :
         print "Data must be an integer, between 1 and 16."
         print "(Data is not padded in any secure way."
         while 1 :
-            data = raw_input("Data : ")
+            data = int(raw_input("Data : "))
             if 0 < data < self.p0 :
-                data = int(data)
                 x, y = pubkey[0], pubkey[1]
                 self.cipher[len(self.cipher)] = (data * x) % y
                 break
@@ -211,4 +210,18 @@ if __name__ == '__main__' :
     if b.lower() in ['n','no'] :
         pass
     else : a.p2i = findmmi(a.p2)
+    print "Generating keypair: a.private, a.public dictionaries."
+    a.genkeypair()
+    print "Private: ", a.private
+    print "Public: ", a.public
+    print "Testing encryption..."
+    a.encrypt(a.public[0])
+    print "Ciphertext: ", a.cipher
+    c = (a.cipher * a.private[0][2]) % a.public[0][1]
+    print c
+    c = (c * a.private[0][1]) % a.private[0][3]
+    print c
+    c = (c * a.private[0][0]) % a.p0
+    print c
+    
     #
