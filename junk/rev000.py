@@ -79,11 +79,11 @@ def test0 ( bitsz ) :
             else : break
         # generate mmi after eliminating some composites (above P64)
         r = SR().getrandbits(a // 2)
-        c = findmmi(b, r)
+        c = findmmi(b, r) # breaks the world
         while 1 :
             if type(c) == str :
                 b = b + 2
-                c = findmmi(b, r)
+                c = findmmi(b, r) # infinite loop + processor intensive?! Sign me up!
             #
             if type(c) == long : break
             #
