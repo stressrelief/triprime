@@ -118,8 +118,7 @@ class Triprime ( ) :
         #
     #
     def decrypt ( self, seckey ) :
-        #
-        #
+        pass
     #
 """    def test ( self, x, y, z=5 ) :
         ret = {}
