@@ -39,7 +39,7 @@ def findmmi ( prime, x=None ) :
     if ( a * a ) % prime == 1 :
         ret[a] = a
         # Modified for test2 function testing
-        ret[0] = prime
+        #ret[0] = prime
         #
         c.remove(a)
         d.remove(a)
@@ -81,7 +81,7 @@ class Triprime ( ) :
             self.pfloor = x,y,z # Ew! Gross!
             # Simple demonstration
             # Overrides functionality... remove.
-            self.public, self.private = {}, {}
+            self.public, self.private, self.cipher = {}, {}, {}
             self.ds = 4
             self.p0 = P4
             self.p0i = findmmi(self.p0)
@@ -90,6 +90,35 @@ class Triprime ( ) :
             self.p2 = P16
             #self.p2i = findmmi(self.p2)
         else : return None
+        #
+    #
+    def genkeypair ( self, mode=0 ) :
+        if mode in [0] : # Take that!
+            #
+            w = len(self.private)
+            x, y, z = SR().choice(self.p0i), SR().choice(self.p1i),
+            SR().choice(self.p2i)
+            self.private[w] = self.p0i[x], self.p1i[y], self.p2i[z],self.p1
+            self.public[w] = x * y * z, self.p2
+            #
+        #
+    #
+    def encrypt ( self, pubkey ) :
+        #
+        print "Data must be an integer, between 1 and 16."
+        print "(Data is not padded in any secure way."
+        while 1 :
+            data = raw_input("Data : ")
+            if 0 < data < self.p0 :
+                data = int(data)
+                x, y = pubkey[0], pubkey[1]
+                self.cipher[len(self.cipher)] = (data * x) % y
+                break
+            else : print "Data must be an integer, between 1 and 16."
+        #
+    #
+    def decrypt ( self, seckey ) :
+        #
         #
     #
 """    def test ( self, x, y, z=5 ) :
