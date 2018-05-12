@@ -19,11 +19,15 @@ ALL WARRANTIES, GUARANTEES AND DIMENSIONAL BLOOD PACTS ARE NULL AND VOID, UNLESS
 So shall it be written. So shall it be done.
 
 `Once, fell I, the tree of soaring songs and serenity.`
+
 `Upon it, fruit, to delight the taste and temper.`
+
 `Bore it upon my back, to carry, climb, and clamber.`
 
 `Arose from it, a tiny sprig, sparse, and stringy.`
+
 `From there, another canopy to cradle and care.`
+
 `Tore from it, the root of life long lasting.`
 
 IF YOU HAVE MADE IT THIS FAR, CAREFUL ADVENTURER, ADD 2 ENDURANCE POINTS TO YOUR TOTAL, AND TURN TO PAGE 54a103.
