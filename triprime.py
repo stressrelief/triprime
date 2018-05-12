@@ -107,7 +107,7 @@ class Triprime ( ) :
     def encrypt ( self, pubkey ) :
         #
         print "Data must be an integer, between 1 and 16."
-        print "(Data is not padded in any secure way."
+        print "(Data is not padded in any secure way.)"
         while 1 :
             data = int(raw_input("Data : "))
             if 0 < data < self.p0 :
@@ -117,8 +117,13 @@ class Triprime ( ) :
             else : print "Data must be an integer, between 1 and 16."
         #
     #
-    def decrypt ( self, seckey ) :
-        pass
+    def decrypt ( self, data, seckey ) :
+        c = (data * seckey[2]) % self.p2 #Is in corresponding public key.
+        c = (c * seckey[1]) % seckey[3] #Shh... It's a secret
+        c = (c * seckey[0]) % self.p0 #Known...
+        print c
+        return c
+        #
     #
 """    def test ( self, x, y, z=5 ) :
         ret = {}
@@ -141,63 +146,6 @@ class Triprime ( ) :
             #
         print len(self.p0mmi)
         #
-    #
-    def GenerateP0 ( self ) :
-        # BS method:
-        x = self.p0min + (self.p0max >> 3)
-        while 1 :
-            p0 = SR().getrandbits(x >> 1)
-            if p0 % 2 == 1 : p0 += 1
-            td = {}
-            td[1] = p0
-            for i in P64 :
-                if p0 % i == 0 : td[i] = p0 // i
-                #
-            if len(td) > 1 :
-                self.p0 = p0
-                self.p0mmi = td
-                break
-            #
-        #limit = len(td)
-        #ret = td.copy()
-        #while 1 :
-        #    for i in td :
-        #        if i > 1 :
-        #            for n in P64 :
-        #                if td[i] % n == 0 : ret[i*n] = td[i] // n
-        #                else : pass
-        #                #if td[i] % 2 == 0 : ret[i*2] = td[i] // 2
-        #            if len(ret) == limit : break
-        #            if len(ret) > limit :
-        #                limit = len(ret)
-        #                print limit
-                        #
-                    #
-                #
-            #
-        #
-        #self.p0mmi = ret
-        #return limit
-                    #if td[i] % 2 == 0 : td[i*2] = td[i] // 2
-            # (p0 * p0) = x. check odd parity.
-            # extend appropriately: [1,3,5,7] or [2,4,6,8]
-            #self.p0 = p0
-            #self.p0mmi = td
-            # calculate extended mmi's
-            #sd = td.keys()
-            #ld = td.values()
-            
-            # BS bugs
-            #print p0
-            #print p0.bit_length()
-            #p0 = p0 * p0
-            #print p0.bit_length()
-            #return p0
-        
-        #
-    #
-        #
-    #
 """
 # I need to dig thru the above ^^^
 
@@ -217,11 +165,5 @@ if __name__ == '__main__' :
     print "Testing encryption..."
     a.encrypt(a.public[0])
     print "Ciphertext: ", a.cipher
-    c = (a.cipher[0] * a.private[0][2]) % a.public[0][1]
-    print c
-    c = (c * a.private[0][1]) % a.private[0][3]
-    print c
-    c = (c * a.private[0][0]) % a.p0
-    print c
-    
+    a.decrypt(a.cipher[0],a.private[0])   
     #
