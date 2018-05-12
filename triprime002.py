@@ -96,8 +96,9 @@ class Triprime ( ) :
         if mode in [0] : # Take that!
             #
             w = len(self.private)
-            x, y, z = SR().choice(self.p0i), SR().choice(self.p1i),
-            SR().choice(self.p2i)
+            x = SR().choice(self.p0i)
+            y = SR().choice(self.p1i)
+            z = SR().choice(self.p2i)
             self.private[w] = self.p0i[x], self.p1i[y], self.p2i[z],self.p1
             self.public[w] = x * y * z, self.p2
             #
