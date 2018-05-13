@@ -14,6 +14,7 @@ P64 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
 P16 = (2**16)+1     # 65537
 P8 = (2**8)+1       # 257
 P4 = (2**4)+1       # 17
+
 # Global funcs
 def Ints2Chrs ( in_ls ) :
     return [ chr(i) for i in in_ls ]
@@ -124,8 +125,9 @@ class Triprime ( ) :
         print "Data must be an integer, between 1 and 16."
         print "(Data is not padded in any secure way.)"
         while 1 :
-            data = int(raw_input("Data : "))
-            if 0 < data < self.p0 :
+            data = long(raw_input("Data : "))
+            if type(data) in [int, long] :
+            #if 0 < data < self.p0 :
                 x, y = pubkey[0], pubkey[1]
                 self.cipher[len(self.cipher)] = (data * x) % y
                 break
