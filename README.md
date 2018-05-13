@@ -33,7 +33,7 @@ This will take a few minutes, depending on your system specifications. After it 
 
 `foo.genkeypair()`
 
-Your keys will be stored in the public, and private, dictionaries, with corresponding key values. You may use the encrypt method with a valid public key, which will request a 4 bit data input:
+Your keys will be stored in the public, and private, dictionaries, with corresponding key values. You may use the encrypt method with a valid public key, which will request a 4 bit data input, however, it will accept a much larger input:
 
 `foo.encrypt(foo.public[0])`
 
