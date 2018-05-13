@@ -7,7 +7,7 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Word, and to permit persons to whom the Word is
 furnished to do so, subject to the following conditions:
 
-* One immortal soul, spun at 38 Hz for 6 parsecs, in vacuo, over a honey/basil souflette, delivered by dodo bird, to my left hand, upon the day of my choosing, as the prophecy foretold.
+* One immortal soul, spun at 38 Hz for 6 parsecs, in vacuo, over a honey/basil souffle, delivered by dodo bird, to my left hand, upon the day of my choosing, as the prophecy foretold.
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software, if I can be bothered to remember.
 
