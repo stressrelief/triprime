@@ -1,5 +1,5 @@
 # triprime 
-0.0.1.4(pre-alpha-crapware)
+0.0.1.41(pre-alpha-crapware)
 
 # Excursions in cryptography for the sake of secrecy, and deniability.
 ...that's what we tell ourselves.
@@ -44,3 +44,14 @@ The encrypt method can also accept an optional data value:
 The underlying ciphertext is stored in the cipher dictionary. You may use the decrypt method, with a valid ciphertext, and private key, in order to recover the data selection from the encrypt method.
 
 `foo.decrypt(foo.cipher[0], foo.private[0])`
+
+# Onward...
+A new method has been added for determining an mmi pair, for a given prime, when supplied with only 1 random value (half of the mmi pair) and a size in bits, for a random value. These are used to calculate a composite, then test the primality (like a fart on Jupiter) of their product minus one.
+
+`foo.findmmilazy(1234567890,8)`
+
+This will be a component of key creation for accomodating larger data sizes, as we approach something 'better.'
+
+`foo.findmmilazy(SR().getrandbits(2048),2048)`
+
+
