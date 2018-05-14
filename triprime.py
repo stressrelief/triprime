@@ -1,7 +1,9 @@
 
+import json
 from random import SystemRandom as SR
 
-#
+# Begotten of Assymetricyptogorgonomicron
+# v: 0.0.1.4(pre-alpha-crapware)
 
 # Global vars
 P64 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
@@ -105,6 +107,15 @@ class Triprime ( ) :
             self.p1i = findmmi(self.p1)
             self.p2 = P16
             #self.p2i = findmmi(self.p2)
+            with open('output0.json','r') as f :
+                self.p2i = json.load(f)
+            for i in self.p2i.keys() :
+                #
+                if type(i) in [str, unicode] :
+                    self.p2i[int(i)] = self.p2i.pop(i)
+                    #
+                #
+            #    
         else : return None
         #
     #
@@ -112,16 +123,29 @@ class Triprime ( ) :
         if mode in [0] : # Take that!
             #
             w = len(self.private)
-            x = SR().choice(self.p0i)
-            y = SR().choice(self.p1i)
-            z = SR().choice(self.p2i)
+            x = SR().choice(self.p0i.keys())
+            y = SR().choice(self.p1i.keys())
+            z = SR().choice(self.p2i.keys())
             self.private[w] = self.p0i[x], self.p1i[y], self.p2i[z],self.p1
             self.public[w] = x * y * z, self.p2
             #
         #
     #
-    def encrypt ( self, pubkey ) :
+    def padp0 ( self, mod, bit_sz=16 ) :
+        x = 1 + SR().getrandbits(bit_sz)
+        return (x * (mod -1))
+    #
+    def encrypt ( self, pubkey, data=None ) :
         #
+        if data != None :
+            #
+            x, y = pubkey[0], pubkey[1]
+            # isolate padp functionality
+            # because it is broke as fuck
+            data = self.padp0(self.p0) + data
+            print data
+            self.cipher[len(self.cipher)] = (data * x) % y
+            return data
         print "Data must be an integer, between 1 and 16."
         print "(Data is not padded in any secure way.)"
         while 1 :
