@@ -51,7 +51,7 @@ def findmmi ( mmi_sz, prime, sanity=256 ) :
     y = fart(mmi_sz)
     #print y
     while 1 :
-        if sanity == 0 : return "Devoured by shoggoths."
+        if sanity == 0 : return 0 #"Devoured by shoggoths."
         z = [i % y for i in x ]
         if 0 in z :
             w = x[z.index(0)] / y
@@ -67,7 +67,7 @@ def findpee ( gimp, sanity=64 ) :
     if 0 in [gimp%i for i in P64] : return "Not a prime."
     # Our pfloor is the max data value the gimp can support
     pfloor = (gimp - 1)**2 # Let it flow...
-    w = SR().getrandbits(gimp.bit_length() >> 1)
+    w = SR().getrandbits(gimp.bit_length() >> 2)
     x = pfloor + w
     if x%2 == 0 : x += 1
     while 1 :
@@ -78,7 +78,35 @@ def findpee ( gimp, sanity=64 ) :
         sanity -= 1
         #
     #
-    return "Devoured by shoggoths."
+    return 0 #"Devoured by shoggoths."
+#
+#
+def extend ( x, y, prime ) :
+    #
+    if (x * y) % prime != 1 : return "Invalid input."
+    #
+    #ret = { 0 : prime, x : y }
+    ret = {}
+    w = [ y%i for i in P64 ]
+    print w
+    if 0 in w :
+        a = y / P64[w.index(0)]
+        b = x * P64[w.index(0)]
+        if (a * b) % prime == 1 :
+            ret[a] = b
+            #ret[b] = a
+    w = [ x%i for i in P64 ]
+    print w
+    if 0 in w :
+        a = x / P64[w.index(0)]
+        b = y * P64[w.index(0)]
+        if (a * b) % prime == 1 :
+            ret[a] = b
+            #ret[b] = a
+            #
+        #
+    #
+    return ret
 #
 
 
