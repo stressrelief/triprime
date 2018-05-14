@@ -29,7 +29,7 @@ After creating a new instance, you will need to calculate the MMIs for P2 (See c
 
 `foo.p2i = findmmi(foo.p2)`
 
-This will take a few minutes, depending on your system specifications. After it completes, you can use the genkeypair() method to create a private, and public, keypair. **Note**: the output0.json file contains this data, and can be loaded to save time.
+This will take a few minutes, depending on your system specifications. After it completes, you can use the genkeypair() method to create a private, and public, keypair. **Note**: the `output0.json` file contains this data, and can be loaded to save time.
 
 `foo.genkeypair()`
 
