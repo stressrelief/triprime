@@ -37,6 +37,10 @@ Your keys will be stored in the public, and private, dictionaries, with correspo
 
 `foo.encrypt(foo.public[0])`
 
+The encrypt method can also accept an optional data value:
+
+`foo.encrypt(foo.public[0],1)`
+
 The underlying ciphertext is stored in the cipher dictionary. You may use the decrypt method, with a valid ciphertext, and private key, in order to recover the data selection from the encrypt method.
 
 `foo.decrypt(foo.cipher[0], foo.private[0])`
