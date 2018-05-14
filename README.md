@@ -1,5 +1,5 @@
 # triprime 
-0.0.1.3(pre-alpha-crapware)
+0.0.1.4(pre-alpha-crapware)
 
 # Excursions in cryptography for the sake of secrecy, and deniability.
 ...that's what we tell ourselves.
