@@ -1,9 +1,11 @@
 
+# Begotten of Assymetricyptogorgonomicron
+# v: 0.0.1.41(pre-alpha-crapware)
+
 import json
 from random import SystemRandom as SR
 
-# Begotten of Assymetricyptogorgonomicron
-# v: 0.0.1.4(pre-alpha-crapware)
+
 
 # Global vars
 P64 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
@@ -32,6 +34,26 @@ def Ints2Str ( in_ls ) :
 #
 def Str2Ints ( in_ls ) :
     return [ int(i.encode("hex"),16) for i in in_ls ]
+#
+def findmmilazy ( mmi, rand_sz ) :
+    if type(mmi) in [int, long] :
+        x = mmi
+        print x
+    if type(rand_sz) in [int, long] :
+        if rand_sz < mmi :
+            y = SR().getrandbits(rand_sz)
+            print y
+    p = (x * y) - 1
+    # find a damn prime
+    while 1 :
+        if 0 in [p%i for i in P64] :
+            y += 1
+            p = (x * y) - 1
+        elif (x * y) % p == 1 :
+            return [x,y,p]
+        #
+    #
+    return None
 #
 def findmmi ( prime, x=None ) :
     a = prime - 1
@@ -97,9 +119,9 @@ class Triprime ( ) :
             y = x * x
             z = y * y
             self.pfloor = x,y,z # Ew! Gross!
+            self.public, self.private, self.cipher = {}, {}, {}
             # Simple demonstration
             # Overrides functionality... remove.
-            self.public, self.private, self.cipher = {}, {}, {}
             self.ds = 4
             self.p0 = P4
             self.p0i = findmmi(self.p0)
