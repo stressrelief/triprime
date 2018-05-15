@@ -121,9 +121,9 @@ def str2long( x ) :
 #
 def simpleinput ( size ) :
     #
-    prompt = 'Input Data :'
+    prompt = 'Input Data '
     #
-    x = raw_input( prompt + str(size) )
+    x = raw_input( prompt + str(size >> 3) + 'B: ' )
     if len(x) > size : print "Input too large."
     return str2long(x.encode('hex'))
 #
@@ -212,7 +212,7 @@ class Triprime ( ) :
             if len(self.nonces) <= 0 : return 2
             #
             x, y = long2str(data), long2str(self.nonces.pop())
-            x = y + x
+            x = x + y
             return str2long(x)
             #
         return self.nonces.pop()
@@ -294,11 +294,26 @@ class Triprime ( ) :
             #
         #
     #
+    def simpledemo ( self ) :
+        #
+        self.gennonces()
+        self.genkeyparts()
+        self.forgekeypair()
+        self.checkkeyparts()
+        print "Keygen successful? ", self.check
+        data = simpleinput(self.datasz)
+        data = self.usenonce(data)
+        self.encrypt(self.public[0], data)
+        print "Ciphertext: ", self.cipher[0]
+        hax = self.cipher[0] / self.public[0][0]
+        x = self.decrypt(self.private[0], self.cipher[0])
+        if hax == x : print "Nonce fail!"
+        x = long2str(x).decode('hex')
+        print "Decrypt Result: ", x
+        print "Original Data:  ", long2str(data).decode('hex')
+        print "Same?", x == long2str(data).decode('hex')
+    #
 #
 if __name__ == '__main__' :
     A = Triprime(512)
-    A.gennonces()
-    A.genkeyparts()
-    A.forgekeypair()
-    A.checkkeyparts()
-    print "Keygen successful? ", A.check
+    A.simpledemo()
