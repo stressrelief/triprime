@@ -34,7 +34,7 @@ The genkeyparts() method is used to create the necessary primes, and some usable
 
 `foo.genkeyparts()`
 
-`foo.forgekeypairs()`
+`foo.forgekeypair()`
 
 Your keys will be stored in the public, and private, dictionaries, with corresponding key values. You may use the encrypt method with a valid public key, and a valid input, no larger than the instance's mode, in bits:
 
