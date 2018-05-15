@@ -216,7 +216,7 @@ class Triprime ( ) :
     #
     def exportkeys ( self, file_name, k_index=0 ) :
         if type(file_name) in [str] :
-            f = open(file_name + 'public.json', 'w')
+            f = open(file_name + '.public.json', 'w')
             json.dump(self.public[k_index], f)
             f.close()
             f = open(file_name + '.secret.json', 'w')
