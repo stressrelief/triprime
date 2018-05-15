@@ -19,7 +19,6 @@ fart = SR().getrandbits
 # Global rituals
 #
 def findmmilazy ( rand_sz ) :
-    #fart = SR().getrandbits
     if type(rand_sz) in [int, long] :
         #
         x = fart(rand_sz)
