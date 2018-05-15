@@ -26,3 +26,6 @@ foo.cipher[0] / foo.public[0][0]
 ```
 
 It's for this reason, a better method must be used...
+
+# A number used once
+An appropriately sized nonce could be added to the data segment. This would reduce the amount of data that could be sent, but it would mitigate the attack above, somewhat. A number, 1/16th the size of the mode, of nonces, 1/8 the size of the data segment, might suffice.
