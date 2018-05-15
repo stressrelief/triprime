@@ -1,5 +1,5 @@
 # Begotten of Assymetricyptogorgonomicron
-# v: 0.0.1.43(pre-alpha-crapware)
+# v: 0.0.1.44(pre-alpha-crapware)
 
 import json
 from random import SystemRandom as SR
@@ -112,11 +112,20 @@ def long2str( x ) :
         return ret
     return "Invalid input."
 #
-#
+# a hexadecimal str to a long...
 def str2long( x ) :
     if type(x) in [str] :
         return long(x,16)
     return "Invalid input."
+#
+#
+def simpleinput ( size ) :
+    #
+    prompt = 'Input Data :'
+    #
+    x = raw_input( prompt + str(size) )
+    if len(x) > size : print "Input too large."
+    return str2long(x.encode('hex'))
 #
 
 #
@@ -125,7 +134,11 @@ class Triprime ( ) :
         if mode not in VALID_MODES : return "Invalid mode."
         #
         self.P0 = PRIMES[VALID_MODES.index(mode)]
-        self.size = (self.P0-1).bit_length()
+        self.size = (self.P0-2).bit_length()
+        # nonce attempt
+        self.noncesz = self.size >> 3
+        self.nonces = [ long(0) for i in range(self.noncesz >> 1) ]
+        self.datasz = self.size - self.noncesz
         self.public, self.private, self.cipher = {}, {}, {}
         #
         #
@@ -184,6 +197,27 @@ class Triprime ( ) :
             #
         #
     #
+    def gennonces ( self ) : # more fun to say
+        x = [ fart(self.noncesz) for i in self.nonces ]
+        if len(set(x)) == len(x) :
+            self.nonces = x
+            #
+        #
+        else : self.gennonces()
+    # needs a long, or it just returns a long nonce from self.nonces
+    def usenonce ( self, data=None ) :
+        #
+        if data != None :
+            if data.bit_length() > self.datasz : return 1
+            if len(self.nonces) <= 0 : return 2
+            #
+            x, y = long2str(data), long2str(self.nonces.pop())
+            x = y + x
+            return str2long(x)
+            #
+        return self.nonces.pop()
+        #
+    #
     def checkkeyparts ( self ) :
         self.check = False
         if len(self.P0mmi) <= 0 : return self.check
@@ -200,7 +234,7 @@ class Triprime ( ) :
             #
             x, y = pubkey[0], pubkey[1]
             self.cipher[len(self.cipher)] = (data * x) % y
-            return None
+            #return "Encryption successful."
             #
         #
     #
@@ -263,6 +297,7 @@ class Triprime ( ) :
 #
 if __name__ == '__main__' :
     A = Triprime(512)
+    A.gennonces()
     A.genkeyparts()
     A.forgekeypair()
     A.checkkeyparts()
