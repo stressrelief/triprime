@@ -1,5 +1,5 @@
 # triprime 
-0.0.1.43(pre-alpha-crapware)
+0.0.1.44(pre-alpha-crapware)
 
 # Excursions in cryptography for the sake of secrecy, and deniability.
 ...that's what we tell ourselves.
@@ -30,19 +30,27 @@ By default, a data size of 32 bits will be used (`mode=32`) however the followin
 `[ 32, 64, 128, 256, 512 ]`
 
 
-The genkeyparts() method is used to create the necessary primes, and some usable modular multiplicative inverses, for those primes. It is used in conjuction with the forgekeypair() method to generate a keypair in the public, and private dictionaries of the instance.
+The genkeyparts() method is used to create the necessary primes, and some usable modular multiplicative inverses, for those primes. It is used in conjuction with the forgekeypair() method to generate a keypair in the public, and private dictionaries of the instance. The gennonces() method is a new feature for (somewhat) addressing a potential attack vector.
 
-`foo.genkeyparts()`
-
-`foo.forgekeypair()`
+```
+foo.gennonces()
+foo.genkeyparts()
+foo.forgekeypair()
+```
 
 Your keys will be stored in the public, and private, dictionaries, with corresponding key values. You may use the encrypt method with a valid public key, and a valid input, no larger than the instance's mode, in bits:
 
-`foo.encrypt(foo.public[0], my_data_int)`
+`foo.encrypt(foo.public[0], my_data_long)`
 
 The underlying ciphertext is stored in the cipher dictionary. You may use the decrypt method, with a valid ciphertext, and private key, in order to recover the data selection from the encrypt method.
 
 `foo.decrypt(foo.private[0], foo.cipher[0])`
+
+A nonce list has been introduced, that can be used in conjuction with the usenonce() method, to return a nonce from the list, or, when supplied with optional data, will return that data, padded with the nonce.
+
+`foo.usenonce()`
+
+`foo.usenonce(my_data_long)`
 
 # File operations
 The json library is utilized to easily import, or export key, or ciphertext data. New methods have been implemented in the Triprime class to exploit these features:
