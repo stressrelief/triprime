@@ -1,5 +1,5 @@
 # triprime 
-0.0.1.42(pre-alpha-crapware)
+0.0.1.43(pre-alpha-crapware)
 
 # Excursions in cryptography for the sake of secrecy, and deniability.
 ...that's what we tell ourselves.
@@ -43,6 +43,31 @@ Your keys will be stored in the public, and private, dictionaries, with correspo
 The underlying ciphertext is stored in the cipher dictionary. You may use the decrypt method, with a valid ciphertext, and private key, in order to recover the data selection from the encrypt method.
 
 `foo.decrypt(foo.private[0], foo.cipher[0])`
+
+# File operations
+The json library is utilized to easily import, or export key, or ciphertext data. New methods have been implemented in the Triprime class to exploit these features:
+
+`foo.exportkeys('file_name')`
+
+`foo.exportciphertext('file_name')`
+
+An optional index value can be included to specify which item from the appropriate dictionary, should be exported.
+
+`foo.exportkeys('file_name',2)`
+
+The above would export `foo.public[2]` and `foo.private[2]` to `file_name.public.json` and `file_name.secret.json`, respectively. **Note**: Currently only simple file operations are supported; All output will reside within the same directory as triprime.py
+
+`foo.importpubkey('file_name')`
+
+Will import the specified public key (or anything, really) and place it into the next available key in the public dictionary.
+
+`foo.importseckey('file_name')`
+
+"Hey there, sec key..." Imports the selected file into the next available key in the private dictionary.
+
+`foo.importciphertext('file_name')`
+
+Imports the selected file into the next available key in the cipher dictionary.
 
 # Onward...
 A new method has been added for determining an mmi pair, for a given prime, when supplied with only 1 random value (half of the mmi pair) and a size in bits, for a random value. These are used to calculate a composite, then test the primality (like a fart on Jupiter) of their product minus one.
