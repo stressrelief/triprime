@@ -1,5 +1,5 @@
 # triprime 
-0.0.1.41(pre-alpha-crapware)
+0.0.1.42(pre-alpha-crapware)
 
 # Excursions in cryptography for the sake of secrecy, and deniability.
 ...that's what we tell ourselves.
@@ -22,28 +22,25 @@ Using the darkest of arts, we will evoke two more primes, the first, P1, large e
 Create a new instance of the triprime class:
 
 `foo = Triprime()`
+`foo = Triprime(256)`
 
-(Currently, data_sz is forced into a whopping 4-bit data size, for demonstration.)
+By default, a data size of 32 bits will be used (`mode=32`) however the following modes are now valid:
 
-After creating a new instance, you will need to calculate the MMIs for P2 (See code notes.):
+`[ 32, 64, 128, 256, 512 ]`
 
-`foo.p2i = findmmi(foo.p2)`
 
-This will take a few minutes, depending on your system specifications. After it completes, you can use the genkeypair() method to create a private, and public, keypair. **Note**: the `output0.json` file contains this data, and can be loaded to save time.
+The genkeyparts() method is used to create the necessary primes, and some usable modular multiplicative inverses, for those primes. It is used in conjuction with the forgekeypair() method to generate a keypair in the public, and private dictionaries of the instance.
 
-`foo.genkeypair()`
+`foo.genkeyparts()`
+`foo.forgekeypairs()`
 
-Your keys will be stored in the public, and private, dictionaries, with corresponding key values. You may use the encrypt method with a valid public key, which will request a 4 bit data input, however, it will accept a much larger input:
+Your keys will be stored in the public, and private, dictionaries, with corresponding key values. You may use the encrypt method with a valid public key, and a valid input, no larger than the instance's mode, in bits:
 
-`foo.encrypt(foo.public[0])`
-
-The encrypt method can also accept an optional data value:
-
-`foo.encrypt(foo.public[0],1)`
+`foo.encrypt(foo.public[0], my_data_int)`
 
 The underlying ciphertext is stored in the cipher dictionary. You may use the decrypt method, with a valid ciphertext, and private key, in order to recover the data selection from the encrypt method.
 
-`foo.decrypt(foo.cipher[0], foo.private[0])`
+`foo.decrypt(foo.private[0], foo.cipher[0])`
 
 # Onward...
 A new method has been added for determining an mmi pair, for a given prime, when supplied with only 1 random value (half of the mmi pair) and a size in bits, for a random value. These are used to calculate a composite, then test the primality (like a fart on Jupiter) of their product minus one.
@@ -53,5 +50,7 @@ A new method has been added for determining an mmi pair, for a given prime, when
 This will be a component of key creation for accomodating larger data sizes, as we approach something 'better.'
 
 `foo.findmmilazy(SR().getrandbits(2048),2048)`
+
+Other fun methods have also been added...
 
 
