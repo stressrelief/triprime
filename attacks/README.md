@@ -17,4 +17,17 @@ Notice how the P2 value in the public key is always (usually) larger than the pr
 
 If a sufficiently small data value is multiplied by a sufficiently small mmi product, the modular reduction by P2 will be ineffective. Trivial division by the public key's mmi product would reveal the underlying data value.
 
-It's for this reason, a better method must be used.
+`foo = Triprime(512)
+
+foo.genkeyparts()
+
+foo.forgekeypair()
+
+foo.encrypt(foo.public[0], 1337)
+
+foo.cipher[0] / foo.public[0][0]
+
+1337L`
+
+
+It's for this reason, a better method must be used...
