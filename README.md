@@ -22,6 +22,7 @@ Using the darkest of arts, we will evoke two more primes, the first, P1, large e
 Create a new instance of the triprime class:
 
 `foo = Triprime()`
+
 `foo = Triprime(256)`
 
 By default, a data size of 32 bits will be used (`mode=32`) however the following modes are now valid:
@@ -32,6 +33,7 @@ By default, a data size of 32 bits will be used (`mode=32`) however the followin
 The genkeyparts() method is used to create the necessary primes, and some usable modular multiplicative inverses, for those primes. It is used in conjuction with the forgekeypair() method to generate a keypair in the public, and private dictionaries of the instance.
 
 `foo.genkeyparts()`
+
 `foo.forgekeypairs()`
 
 Your keys will be stored in the public, and private, dictionaries, with corresponding key values. You may use the encrypt method with a valid public key, and a valid input, no larger than the instance's mode, in bits:
