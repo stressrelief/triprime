@@ -1,6 +1,7 @@
 # Begotten of Assymetricyptogorgonomicron
-# v: 0.0.1.42(pre-alpha-crapware)
+# v: 0.0.1.43(pre-alpha-crapware)
 
+import json
 from random import SystemRandom as SR
 
 # Global sigils
@@ -19,6 +20,7 @@ fart = SR().getrandbits
 # Global rituals
 #
 def findmmilazy ( rand_sz ) :
+    #fart = SR().getrandbits
     if type(rand_sz) in [int, long] :
         #
         x = fart(rand_sz)
@@ -101,6 +103,21 @@ def extendmmi ( x, y, prime ) :
     #
     return ret
 #
+#
+def long2str( x ) :
+    if type(x) in [long] :
+        ret = hex(x)[2:-1]
+        if len(ret) & 1 == 1 : # This shouldn't be necessary...
+            ret = '0' + ret
+        return ret
+    return "Invalid input."
+#
+#
+def str2long( x ) :
+    if type(x) in [str] :
+        return long(x,16)
+    return "Invalid input."
+#
 
 #
 class Triprime ( ) :
@@ -167,6 +184,16 @@ class Triprime ( ) :
             #
         #
     #
+    def checkkeyparts ( self ) :
+        self.check = False
+        if len(self.P0mmi) <= 0 : return self.check
+        if len(self.P1mmi) <= 0 : return self.check
+        if self.P1.bit_length <= 0 : return self.check
+        if len(self.P2mmi) <= 0 : return self.check
+        if self.P2.bit_length <= 0 : return self.check
+        self.check = True
+        #
+    #
     def encrypt ( self, pubkey, data=None ) :
         #
         if data != None :
@@ -187,9 +214,56 @@ class Triprime ( ) :
             #
         #
     #
+    def exportkeys ( self, file_name, k_index=0 ) :
+        if type(file_name) in [str] :
+            f = open(file_name + 'public.json', 'w')
+            json.dump(self.public[k_index], f)
+            f.close()
+            f = open(file_name + '.secret.json', 'w')
+            json.dump(self.private[k_index], f)
+            f.close()
+            #
+        #
+    #
+    def exportciphertext ( self, file_name, k_index=0 ) :
+        if type(file_name) in [str] :
+            f = open(file_name + '.cipher.json', 'w')
+            json.dump(self.cipher[k_index], f)
+            f.close()
+            #
+        #
+    #
+    def importpubkey ( self, file_name ) :
+        ki = len(self.public)
+        if type(file_name) in [str] :
+            f = open(file_name, 'r')
+            self.public[ki] = tuple(json.load(f))
+            f.close()
+            #
+        #
+    #
+    def importseckey ( self, file_name ) :
+        ki = len(self.private)
+        if type(file_name) in [str] :
+            f = open(file_name, 'r')
+            self.private[ki] = tuple(json.load(f))
+            f.close()
+            #
+        #     
+    #
+    def importciphertext ( self, file_name ) :
+        ki = len(self.cipher)
+        if type(file_name) in [str] :
+            f = open(file_name, 'r')
+            self.cipher[ki] = long(json.load(f))
+            f.close()
+            #
+        #
+    #
 #
 if __name__ == '__main__' :
     A = Triprime(512)
     A.genkeyparts()
     A.forgekeypair()
-    
+    A.checkkeyparts()
+    print "Keygen successful? ", A.check
