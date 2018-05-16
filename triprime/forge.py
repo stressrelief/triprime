@@ -33,6 +33,8 @@ class HellForge ( ) :
         self.nonces = [ long(0) for i in range(self.noncesz >> 1) ]
         self.public, self.private = {}, {}
         #
+        self.DERP = DERP
+        #
     #
     #
     def findmmilazy ( self, rand_sz ) :
