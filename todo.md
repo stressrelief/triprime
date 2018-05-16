@@ -22,3 +22,5 @@ Implement symmetric cipher and hash suites
 New key/file format
 
 Continue testing on cipher/key encapsulation, and "the 3rd and 4th kinds of keys"
+
+**Upgrade to Python 3.6 for secrets**
