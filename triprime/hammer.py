@@ -36,8 +36,6 @@ class BaleHammer ( ) :
         if mode not in VALID_MODES : return DERP[0]
         # Assign known P0 and setup attributes
         self.P0 = PRIMES[VALID_MODES.index(mode)]
-        self.P1, self.P2 = 0, 0
-        self.P0mmi, self.P1mmi, self.P2mmi = [], [], []
         self.size = (self.P0 - 2).bit_length()
         self.nonce_sz = self.size >> 3
         self.nonces = [ long(0) for i in range(self.nonce_sz >> 1) ]
@@ -45,29 +43,7 @@ class BaleHammer ( ) :
         self.public, self.private, self.cipher, self.data = {},{},{},{}
         #
     #
-    #
-    def check_nonces ( self ) :
-        #
-        x, y, z = len(self.nonces), len(set(self.nonces)), self.nonce_sz >> 1
-        if x == y :
-            if x == z :
-                return True
-            #
-        return False
-    #
-    #
-    def check_key_parts ( self ) :
-        #
-        v, w = self.P1.bit_length(), self.P2.bit_length()
-        x, y, z = len(self.P0mmi), len(self.P1mmi), len(self.P2mmi)
-        self.key_check = { 'P1bit' : v, 'P2bit' : w, 'P0mmi' : x,
-                           'P1mmi' : y, 'P2mmi' : z }
-        if 0 in [ v, w, x, y, z ] :
-            return False
-        #
-        return True
-    #
-    #
+    #    
     def use_nonce ( self, data ) :
         #
         if type(data) not in [long] : return DERP[4]

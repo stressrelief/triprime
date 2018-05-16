@@ -11,7 +11,8 @@ VALID_MODES = (32,64,128,256,512,1024)
 
 PRIMES = [ (2**i)+1 for i in VALID_MODES ]
 
-DERP = [ "Invalid mode.", "Failed to generate key primitives.",
+DERP = [ "Invalid mode.", "Nonce generation failed.",
+         "Failed to generate key primitives.",
           ]
 
 # Global rituals
@@ -21,27 +22,32 @@ class TriPrime ( ) :
     def __init__ ( self, mode=32 ) :
         if mode not in VALID_MODES : return DERP[0]
         # Assign known P0 and setup attributes
+        self.mode = mode
         self.P0 = PRIMES[VALID_MODES.index(mode)]
         self.size = (self.P0 - 2).bit_length()
         #
     #
     #
-    def test0 ( self, mode=512 ) :
+    def test0 ( self, ) :
         #
+        mode = self.mode
         a = forge.HellForge(mode)
-        a.gennonces()
-        b = a.genkeyparts()
-        if b in [1,2,3] : return DERP[1]
-        b = a.forgekeypair()
+        a.gen_nonces()
+        b = a.check_nonces()
+        if b in [False] : return DERP[1]
+        b = a.gen_key_parts()
+        if b in [1,2,3] : return DERP[2]
+        b = a.check_key_parts()
+        if b in [False] : return DERP[2]
+        b = a.forge_keypair()
         if b in a.DERP : return b
         b = hammer.BaleHammer(mode)
-        b.P1, b.P2 = a.P1, a.P2
-        b.P0mmi, b.P1mmi, b.P2mmi = a.P0mmi, a.P1mmi, a.P2mmi
-        b.nonces, b.private, b.public = a.nonces, a.private, a.public
+        b.private, b.public, b.nonces = a.private, a.public, a.nonces
+        # Hammer enchanted!
         return b
 
 
 #
 if __name__ == '__main__' :
     #
-    a = TriPrime().test0(128)
+    a = TriPrime(128).test0()

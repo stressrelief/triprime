@@ -28,13 +28,37 @@ class HellForge ( ) :
     def __init__ ( self, mode=32 ) :
         if mode not in VALID_MODES : return DERP[0]
         self.P0 = PRIMES[VALID_MODES.index(mode)]
+        self.P1, self.P2 = 0, 0
+        self.P0mmi, self.P1mmi, self.P2mmi = [], [], []
         self.size = (self.P0-2).bit_length()
-        self.noncesz = self.size >> 3
-        self.nonces = [ long(0) for i in range(self.noncesz >> 1) ]
+        self.nonce_sz = self.size >> 3
+        self.nonces = [ long(0) for i in range(self.nonce_sz >> 1) ]
         self.public, self.private = {}, {}
         #
         self.DERP = DERP
         #
+    #
+    #
+    def check_nonces ( self ) :
+        #
+        x, y, z = len(self.nonces), len(set(self.nonces)), self.nonce_sz >> 1
+        if x == y :
+            if x == z :
+                return True
+            #
+        return False
+    #
+    #
+    def check_key_parts ( self ) :
+        #
+        v, w = self.P1.bit_length(), self.P2.bit_length()
+        x, y, z = len(self.P0mmi), len(self.P1mmi), len(self.P2mmi)
+        self.key_check = { 'P1bit' : v, 'P2bit' : w, 'P0mmi' : x,
+                           'P1mmi' : y, 'P2mmi' : z }
+        if 0 in [ v, w, x, y, z ] :
+            return False
+        #
+        return True
     #
     #
     def findmmilazy ( self, rand_sz ) :
@@ -116,7 +140,7 @@ class HellForge ( ) :
         return ret
     #
     #
-    def forgekeypair ( self ) :
+    def forge_keypair ( self ) :
         if len(self.P0mmi) <= 0 : return DERP[5]
         if len(self.P1mmi) <= 0 : return DERP[6]
         if len(self.P2mmi) <= 0 : return DERP[7]
@@ -129,7 +153,7 @@ class HellForge ( ) :
         return None
     #
     #
-    def genkeyparts ( self, mode=0, sanity=32) :
+    def gen_key_parts ( self, mode=0, sanity=32) :
         if mode in [0] :
             # Generate P1, and P1 mmi pair
             x = self.findpee(self.P0)
@@ -169,11 +193,11 @@ class HellForge ( ) :
             #
         #
     #
-    def gennonces ( self ) : # more fun to say
+    def gen_nonces ( self ) : # more fun to say
         fart = SR().getrandbits
-        x = [ fart(self.noncesz) for i in self.nonces ]
+        x = [ fart(self.nonce_sz) for i in self.nonces ]
         if len(set(x)) == len(x) :
             self.nonces = x
             #
         #
-        else : self.gennonces()
+        else : self.gen_nonces()
