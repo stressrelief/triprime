@@ -3,10 +3,16 @@
 
 #
 #import os
+import json
 
 VALID_MODES = (32,64,128,256,512,1024)
 
 PRIMES = [ (2**i)+1 for i in VALID_MODES ]
+
+PATHS = { 'prv' : './triprime/private/',
+          'pub' : './triprime/public/',
+          'inc' : './triprime/incoming/',
+          'out' : './triprime/outgoing/' }
 
 DERP = [ "Invalid mode.",
     ]
@@ -24,44 +30,92 @@ class BrimstoneAnvil ( ) :
         #
     #
     #
-    def exportkeys ( self, file_name, k_index=0 ) :
-        if type(file_name) in [str] :
-            f = open(file_name + '.public.json', 'w')
-            json.dump(self.public[k_index], f)
+    def export_public_key ( self, pubkey, filename ) :
+        if len(pubkey) != 2 : return "Invalid public key."
+        if long not in [type(i) for i in pubkey] : return "Invalid public key."
+        if type(filename) not in [str] : return "Invalid filename."
+        if len(filename) >= 64 : return "Filename too long."
+        #
+        path = PATHS['pub'] + filename + '.public'
+        with open(path, 'w') as f :
+            json.dump(pubkey, f)
             f.close()
-            f = open(file_name + '.secret.json', 'w')
-            json.dump(self.private[k_index], f)
+        if f.closed in [False] : f.close() # Why not
+        return path
+    #
+    #
+    def export_private_key ( self, seckey, filename ) :
+        if len(seckey) != 5 : return "Invalid private key."
+        if long not in [type(i) for i in seckey] : return "Invalid private key."
+        if type(filename) not in [str] : return "Invalid filename."
+        if len(filename) >= 64 : return "Filename too long."
+        #
+        path = PATHS['prv'] + filename + '.secret'
+        with open(path, 'w') as f :
+            json.dump(seckey, f)
             f.close()
+        if f.closed in [False] : f.close() # Why not
+        return path 
     #
     #
-    def exportciphertext ( self, file_name, k_index=0 ) :
-        if type(file_name) in [str] :
-            f = open(file_name + '.cipher.json', 'w')
-            json.dump(self.cipher[k_index], f)
+    def export_ciphertext ( self, cipher, filename ) :
+        #if len(cipher) != 1 : return "Invalid ciphertext."
+        if long not in [type(cipher)] : return "Invalid ciphertext."
+        if type(filename) not in [str] : return "Invalid filename."
+        if len(filename) >= 64 : return "Filename too long."
+        #
+        path = PATHS['out'] + filename + '.cipher'
+        with open(path, 'w') as f :
+            json.dump(cipher, f)
             f.close()
+        if f.closed in [False] : f.close() # Why not
+        return path 
     #
     #
-    def importpubkey ( self, file_name ) :
+    def import_public_key ( self, filename ) :
+        if type(filename) not in [str] : return "Invalid filename."
+        if len(filename) >= 64 : return "Filename too long."
         ki = len(self.public)
-        if type(file_name) in [str] :
-            f = open(file_name, 'r')
+        path = PATHS['inc'] + filename + '.public'
+        with open(path, 'r') as f :
             self.public[ki] = tuple(json.load(f))
             f.close()
+        if f.closed in [False] : f.close()
+        return ki
     #
     #
-    def importseckey ( self, file_name ) :
+    def import_private_key ( self, filename ) :
+        if type(filename) not in [str] : return "Invalid filename."
+        if len(filename) >= 64 : return "Filename too long."
         ki = len(self.private)
-        if type(file_name) in [str] :
-            f = open(file_name, 'r')
+        path = PATHS['inc'] + filename + '.secret'
+        with open(path, 'r') as f :
             self.private[ki] = tuple(json.load(f))
             f.close()
+        if f.closed in [False] : f.close()
+        return ki
     #     
     #
-    def importciphertext ( self, file_name ) :
+    def import_secrets ( self, filename ) :
+        if type(filename) not in [str] : return "Invalid filename."
+        if len(filename) >= 64 : return "Filename too long."
+        ki = len(self.private)
+        path = PATHS['prv'] + filename + '.secret'
+        with open(path, 'r') as f :
+            self.private[ki] = tuple(json.load(f))
+            f.close()
+        if f.closed in [False] : f.close()
+        return ki
+    #
+    #
+    def import_ciphertext ( self, filename ) :
+        if type(filename) not in [str] : return "Invalid filename."
+        if len(filename) >= 64 : return "Filename too long."
         ki = len(self.cipher)
-        if type(file_name) in [str] :
-            f = open(file_name, 'r')
+        path = PATHS['inc'] + filename + '.cipher'
+        with open(path, 'r') as f :
             self.cipher[ki] = long(json.load(f))
             f.close()
-            #
+        if f.closed in [False] : f.close()
+        return ki
 
