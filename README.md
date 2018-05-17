@@ -18,6 +18,10 @@ Using the darkest of arts, we will evoke two more primes, the first, P1, large e
 
 /The ancient tome is missing several pages here/
 
+...when aligned, shall conjure a divine key, which can be used with the sign of the Dark S...
+
+/The ancient tome is missing several pages here/
+
 # Code Usage
 Create a new instance of the triprime class:
 
