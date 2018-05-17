@@ -1,4 +1,4 @@
-# Triprime 
+# triprime 
 version 0.0.1.45(pre-alpha-crapware)
 
 # Excursions in cryptography for the sake of secrecy, and deniability.
@@ -11,6 +11,7 @@ Create a new instance of the `TriPrime` class, optionally specifying the data si
 foo = TriPrime(512)
 ```
 
+#Forge
 Key generation can be accomplished by the `forge` module, which accepts an optional data size (default: 32 bit):
 
 ```bar = forge.HellForge()
@@ -30,6 +31,12 @@ The `gen_key_parts` and `check_key_parts` methods are used in a similar fashion:
 if bar.check_key_parts() in [False] : 
     return "Key primitive check failed."
 ```
+
+The `forge_keypair` method will use the calculated key primitives, to create a private/public keypair.
+
+`bar.forge_keypair()`
+
+
 
 # Nonsense
 
