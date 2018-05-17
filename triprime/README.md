@@ -1,13 +1,27 @@
 # Triprime 
-(New names welcome)
-
-Version 0.0.1.45(pre-alpha-crapware)
+version 0.0.1.45(pre-alpha-crapware)
 
 # Excursions in cryptography for the sake of secrecy, and deniability.
 ...that's what we tell ourselves.
 
 # Code Usage
+Create a new instance of the TriPrime class, optionally specifying the data size (default: 32 bit):
 
+```foo = TriPrime()
+foo = TriPrime(512)
+```
+
+Key generation can be accomplished by the `forge` module, which accepts an optional data size (default: 32 bit):
+
+```bar = forge.HellForge()
+bar = forge.HellForge(512)
+```
+
+The `HellForge` contains methods for generating appropriate nonces, and checking their validity:
+
+```bar.gen_nonces()
+if bar.check_nonces() in [False] : return "Nonce generation failed."
+```
 
 # Nonsense
 
