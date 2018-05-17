@@ -68,7 +68,27 @@ The `decrypt` method will use a supplied private key, to decrypt supplied cipher
 
 * **Anvil**
 
-` `
+Importing file like objects (json) is possible with the `anvil` module, which accepts an optional data size (default: 32 bits):
+
+`bar = anvil.BrimstoneAnvil(512)`
+
+The `import_secrets` method will look for a specified file name prefix, in the `/triprime/private/` directory, loading any matching `.secret` key into the `private` dictionary of the instance.
+
+`i = bar.import_secrets('foo')`
+
+*This would attempt to load the file located at `/triprime/private/foo.secret` into `bar.private`.*
+
+The `export_public_key` method will export a specified key, to the `/triprime/public/` directory given a file name prefix. This key is softly checked for validity before export. The method returns the file path for the exported key.
+
+`p = bar.export_public_key(bar.public[0], 'bar')`
+
+The `export_private_key` method will export a specified key, to the `/triprime/private/` directory given a file name prefix. This key is softly checked for validity before export. The method returns the file path for the exported key.
+
+`p = bar.export_private_key(bar.private[0], 'bar')`
+
+The `export_ciphertext` method will export ciphertext, (or any long) to the `/triprime/outgoing/` directory given a file name prefix. The ciphertext is softly checked for validity before export. The method returns the file path for the exported ciphertext.
+
+`p = bar.export_ciphertext(bar.cipher[0], 'bar')`
 
 # Nonsense
 
