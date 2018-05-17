@@ -41,9 +41,19 @@ The `forge_keypair` method will use the calculated key primitives, to create a p
 
 `bar.forge_keypair()`
 
+At this point, the keypair can be imported into the appropriate module below, for further use. (Which is probably not as secure as it should be.)
+
 * **Hammer**
 
-` `
+Encryption, decryption, and data handling is performed by the `hammer` module, which accepts an optional data size (default: 32 bit):
+
+`foo = hammer.BaleHammer(512)`
+
+The `BaleHammer` class contains methods for applying usable nonces to a particular data segment, depending on data size of the instance:
+
+```
+
+```
 
 * **Anvil**
 
