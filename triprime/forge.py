@@ -125,11 +125,11 @@ class HellForge ( ) :
         ret = {}
         w = [ y%i for i in P64 ]
         print w
-        if 0 in w :
-            a = y / P64[w.index(0)]
-            b = x * P64[w.index(0)]
-            if (a * b) % prime == 1 :
-                ret[a] = b
+        if 0 not in w : pass
+        a = y / P64[w.index(0)]
+        b = x * P64[w.index(0)]
+        if (a * b) % prime == 1 :
+            ret[a] = b
         w = [ x%i for i in P64 ]
         print w
         if 0 in w :
@@ -191,7 +191,7 @@ class HellForge ( ) :
                 #
             return None
             #
-        #
+    #
     #
     def gen_nonces ( self ) : # more fun to say
         fart = SR().getrandbits
@@ -201,3 +201,9 @@ class HellForge ( ) :
             #
         #
         else : self.gen_nonces()
+        #
+    #
+    #
+    def extend_key ( self ) :
+        pass
+        

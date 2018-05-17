@@ -3,6 +3,12 @@
 
 
 # Global sigils
+P64 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
+       67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137,
+       139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211,
+       223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283,
+       293, 307, 311]
+
 VALID_MODES = (32,64,128,256,512,1024)
 
 PRIMES = [ (2**i)+1 for i in VALID_MODES ]
@@ -43,7 +49,17 @@ class BaleHammer ( ) :
         self.public, self.private, self.cipher, self.data = {},{},{},{}
         #
     #
-    #    
+    #
+    def check_nonces ( self ) :
+        #
+        x, y, z = len(self.nonces), len(set(self.nonces)), self.nonce_sz >> 1
+        if x == y :
+            if x == z :
+                return True
+            #
+        return False
+    #
+    #
     def use_nonce ( self, data ) :
         #
         if type(data) not in [long] : return DERP[4]
@@ -54,7 +70,8 @@ class BaleHammer ( ) :
         if y in [0] : return 0 #
         # calc the pad to keep nonce in upper bits
         z = (self.data_sz >> 2) - len(x)
-        data = x + '0'*z + y
+        #data = x + '0'*z + y
+        data = x + y
         return str2long(data)   
     #
     #
@@ -64,7 +81,7 @@ class BaleHammer ( ) :
         if data.bit_length() > self.size : return DERP[5]
         data = long2str(data)
         if data in [0] : return DERP[9]
-        return str2long(data[: -self.nonce_sz])
+        return str2long(data[: -(self.nonce_sz >> 2)])
     #
     #
     def encrypt ( self, pubkey, data, mode=1 ) :
@@ -112,7 +129,8 @@ class BaleHammer ( ) :
         #
         if mode not in [ 0, 1 ] : return DERP[0]
         if len(seckey) != 5 : return DERP[8]
-        if set(type(i) for i in seckey) != set([long,int]) : return DERP[8]
+        #if set(type(i) for i in seckey) != set([long,int]) : return DERP[8]
+        if long not in [type(i) for i in seckey] : return DERP[8]
         if type(data) not in [long] : return DERP[4]
         #
         if mode == 0 :
