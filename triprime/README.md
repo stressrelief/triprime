@@ -5,7 +5,7 @@ version 0.0.1.45(pre-alpha-crapware)
 ...that's what we tell ourselves.
 
 # Code Usage
-Create a new instance of the TriPrime class, optionally specifying the data size (default: 32 bit):
+Create a new instance of the `TriPrime` class, optionally specifying the data size (default: 32 bit):
 
 ```foo = TriPrime()
 foo = TriPrime(512)
@@ -17,10 +17,18 @@ Key generation can be accomplished by the `forge` module, which accepts an optio
 bar = forge.HellForge(512)
 ```
 
-The `HellForge` contains methods for generating appropriate nonces, and checking their validity:
+The `HellForge` class contains methods for generating appropriate nonces, and checking their validity:
 
 ```bar.gen_nonces()
 if bar.check_nonces() in [False] : return "Nonce generation failed."
+```
+
+The `gen_key_parts` and `check_key_parts` methods are used in a similar fashion:
+
+```if bar.gen_key_parts() in [1,2,3] : 
+    return "Failed to generate key primitives."
+if bar.check_key_parts() in [False] : 
+    return "Key primitive check failed."
 ```
 
 # Nonsense
