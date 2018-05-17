@@ -1,5 +1,5 @@
 # Begotten of Assymetricyptogorgonomicron
-# v: 0.0.1.45(pre-alpha-crapware)
+# v: 0.0.1.46(pre-alpha-crapware)
 
 #
 #import os
@@ -14,13 +14,13 @@ PATHS = { 'prv' : './triprime/private/',
           'inc' : './triprime/incoming/',
           'out' : './triprime/outgoing/' }
 
-DERP = [ "Invalid mode.",
+DERP = [ "Invalid mode.", "Invalid public key.", "Invalid filename.",
+         "Filename too long.", "Invalid private key.", "Invalid ciphertext.",
     ]
 
 #
 # Global rituals
 #
-
 class BrimstoneAnvil ( ) :
     def __init__ ( self, mode=32 ) :
         if mode not in VALID_MODES : return DERP[0]
@@ -31,11 +31,10 @@ class BrimstoneAnvil ( ) :
     #
     #
     def export_public_key ( self, pubkey, filename ) :
-        if len(pubkey) != 2 : return "Invalid public key."
-        if long not in [type(i) for i in pubkey] : return "Invalid public key."
-        if type(filename) not in [str] : return "Invalid filename."
-        if len(filename) >= 64 : return "Filename too long."
-        #
+        if len(pubkey) != 2 : return DERP[1]
+        if long not in [type(i) for i in pubkey] : return DERP[1]
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
         path = PATHS['pub'] + filename + '.public'
         with open(path, 'w') as f :
             json.dump(pubkey, f)
@@ -45,36 +44,34 @@ class BrimstoneAnvil ( ) :
     #
     #
     def export_private_key ( self, seckey, filename ) :
-        if len(seckey) != 5 : return "Invalid private key."
-        if long not in [type(i) for i in seckey] : return "Invalid private key."
-        if type(filename) not in [str] : return "Invalid filename."
-        if len(filename) >= 64 : return "Filename too long."
+        if len(seckey) != 5 : return DERP[4]
+        if long not in [type(i) for i in seckey] : return DERP[4]
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
         #
         path = PATHS['prv'] + filename + '.secret'
         with open(path, 'w') as f :
             json.dump(seckey, f)
             f.close()
-        if f.closed in [False] : f.close() # Why not
+        if f.closed in [False] : f.close() 
         return path 
     #
     #
     def export_ciphertext ( self, cipher, filename ) :
-        #if len(cipher) != 1 : return "Invalid ciphertext."
-        if long not in [type(cipher)] : return "Invalid ciphertext."
-        if type(filename) not in [str] : return "Invalid filename."
-        if len(filename) >= 64 : return "Filename too long."
-        #
+        if long not in [type(cipher)] : return DERP[5]
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
         path = PATHS['out'] + filename + '.cipher'
         with open(path, 'w') as f :
             json.dump(cipher, f)
             f.close()
-        if f.closed in [False] : f.close() # Why not
+        if f.closed in [False] : f.close() 
         return path 
     #
     #
     def import_public_key ( self, filename ) :
-        if type(filename) not in [str] : return "Invalid filename."
-        if len(filename) >= 64 : return "Filename too long."
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
         ki = len(self.public)
         path = PATHS['inc'] + filename + '.public'
         with open(path, 'r') as f :
@@ -85,8 +82,8 @@ class BrimstoneAnvil ( ) :
     #
     #
     def import_private_key ( self, filename ) :
-        if type(filename) not in [str] : return "Invalid filename."
-        if len(filename) >= 64 : return "Filename too long."
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
         ki = len(self.private)
         path = PATHS['inc'] + filename + '.secret'
         with open(path, 'r') as f :
@@ -97,8 +94,8 @@ class BrimstoneAnvil ( ) :
     #     
     #
     def import_secrets ( self, filename ) :
-        if type(filename) not in [str] : return "Invalid filename."
-        if len(filename) >= 64 : return "Filename too long."
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
         ki = len(self.private)
         path = PATHS['prv'] + filename + '.secret'
         with open(path, 'r') as f :
@@ -109,8 +106,8 @@ class BrimstoneAnvil ( ) :
     #
     #
     def import_ciphertext ( self, filename ) :
-        if type(filename) not in [str] : return "Invalid filename."
-        if len(filename) >= 64 : return "Filename too long."
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
         ki = len(self.cipher)
         path = PATHS['inc'] + filename + '.cipher'
         with open(path, 'r') as f :
