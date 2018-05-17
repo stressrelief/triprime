@@ -12,6 +12,7 @@ foo = TriPrime(512)
 ```
 
 * **Forge**
+
 Key generation can be accomplished by the `forge` module, which accepts an optional data size (default: 32 bit):
 
 ```bar = forge.HellForge()
@@ -38,9 +39,11 @@ The `forge_keypair` method will use the calculated key primitives, to create a p
 
 * **Hammer**
 
-
+` `
 
 * **Anvil**
+
+` `
 
 # Nonsense
 
