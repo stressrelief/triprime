@@ -31,10 +31,10 @@ if bar.check_nonces() in [False] : return "Nonce generation failed."
 The `gen_key_parts` and `check_key_parts` methods are used in a similar fashion:
 
 ```
-if bar.gen_key_parts() in [1,2,3] : 
-    return "Failed to generate key primitives."
-if bar.check_key_parts() in [False] : 
-    return "Key primitive check failed."
+x = bar.gen_key_parts()
+if x in [1,2,3] : return "Failed to generate key primitives."
+x = bar.check_key_parts()
+if x in [False] : return "Key primitive check failed."
 ```
 
 The `forge_keypair` method will use the calculated key primitives, to create a private/public keypair.
@@ -49,11 +49,22 @@ Encryption, decryption, and data handling is performed by the `hammer` module, w
 
 `foo = hammer.BaleHammer(512)`
 
-The `BaleHammer` class contains methods for applying usable nonces to a particular data segment, depending on data size of the instance:
+The `BaleHammer` class contains methods for checking, and applying usable nonces to a particular data segment, depending on data size of the instance:
 
 ```
+x = foo.check_nonces()
+if x in [False] : return "No valid nonce available."
+data = foo.use_nonce(data)
+```
+
+The `encrypt` method will use a supplied public key, to encrypt supplied data (long type). It will return the index value for the encrypted ciphertext, in the `cipher` dictionary:
 
 ```
+x = foo.encrypt(foo.public[0], data)
+print foo.cipher[x]
+```
+
+The `decrypt` method will use a supplied private key, to decrypt supplied ciphertext (long type). It will return the index value for the decrypted data, in the `data` dictionary.
 
 * **Anvil**
 
