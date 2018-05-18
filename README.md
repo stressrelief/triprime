@@ -1,5 +1,5 @@
 # triprime 
-version 0.0.1.45(pre-alpha-crapware)
+version 0.0.1.46(pre-alpha-crapware)
 
 # Excursions in cryptography for the sake of secrecy, and deniability.
 ...that's what we tell ourselves.
@@ -11,6 +11,20 @@ Create a new instance of the `TriPrime` class, optionally specifying the data si
 foo = TriPrime()
 foo = TriPrime(512)
 ```
+
+To create a new keypair, 
+
+To import an existing private key,
+
+To import an existing public key,
+
+To encrypt a message,
+
+To decrypt a ciphertext message,
+
+To import a ciphertext,
+
+To export a key, or ciphertext file,
 
 * **Forge**
 
