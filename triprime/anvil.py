@@ -12,7 +12,8 @@ PRIMES = [ (2**i)+1 for i in VALID_MODES ]
 PATHS = { 'prv' : './triprime/private/',
           'pub' : './triprime/public/',
           'inc' : './triprime/incoming/',
-          'out' : './triprime/outgoing/' }
+          'out' : './triprime/outgoing/',
+          'pro' : './triprime/profiles/'}
 
 DERP = [ "Invalid mode.", "Invalid public key.", "Invalid filename.",
          "Filename too long.", "Invalid private key.", "Invalid ciphertext.",
@@ -69,6 +70,30 @@ class BrimstoneAnvil ( ) :
         return path 
     #
     #
+    def export_profile ( self, profile, filename ) :
+        #
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
+        path = PATHS['pro'] + filename + '.profile'
+        with open(path, 'w') as f :
+            json.dump(profile, f)
+            f.close()
+        if f.closed in [False] : f.close()
+        return path
+    #
+    # exports to incoming for easy importing
+    def export_ciphertest ( self, cipher, filename ) :
+        if long not in [type(cipher)] : return DERP[5]
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
+        path = PATHS['inc'] + filename + '.cipher'
+        with open(path, 'w') as f :
+            json.dump(cipher, f)
+            f.close()
+        if f.closed in [False] : f.close() 
+        return path
+    #
+    #
     def import_public_key ( self, filename ) :
         if type(filename) not in [str] : return DERP[2]
         if len(filename) >= 64 : return DERP[3]
@@ -100,6 +125,18 @@ class BrimstoneAnvil ( ) :
         path = PATHS['prv'] + filename + '.secret'
         with open(path, 'r') as f :
             self.private[ki] = tuple(json.load(f))
+            f.close()
+        if f.closed in [False] : f.close()
+        return ki
+    #
+    #
+    def import_publics ( self, filename ) :
+        if type(filename) not in [str] : return DERP[2]
+        if len(filename) >= 64 : return DERP[3]
+        ki = len(self.public)
+        path = PATHS['pub'] + filename + '.public'
+        with open(path, 'r') as f :
+            self.public[ki] = tuple(json.load(f))
             f.close()
         if f.closed in [False] : f.close()
         return ki
