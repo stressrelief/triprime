@@ -1,5 +1,5 @@
 # Begotten of Assymetricyptogorgonomicron
-# v: 0.0.1.45(pre-alpha-crapware)
+# v: 0.0.1.46(pre-alpha-crapware)
 
 from random import SystemRandom as SR
 
