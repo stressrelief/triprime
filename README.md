@@ -12,11 +12,35 @@ foo = TriPrime()
 foo = TriPrime(512)
 ```
 
-To create a new keypair, 
+To create a new keypair, use the `forge_hammer` method. The `public` and `private` dicts will contain the respective keys.
 
-To import an existing private key,
+```
+bar = foo.forge_hammer()
+bar.public[0]
+bar.private[0]
+```
+
+To import an existing private key, 
+
+```
+bar = foo.load_secrets('filename')
+if type(bar) in [str] : print 'some error' + bar
+bar = foo.enchant_hammer(bar)
+
+# Or without the check, as a one-liner
+foo.enchant_hammer(foo.load_secrets('filename'))
+```
 
 To import an existing public key,
+
+```
+bar = foo.load_publics('filename')
+if type(bar) in [str] : print 'some error' + bar
+bar = foo.enchant_hammer(bar)
+
+# Or without the check, as a one-liner
+foo.enchant_hammer(foo.load_publics('filename'))
+```
 
 To encrypt a message,
 
