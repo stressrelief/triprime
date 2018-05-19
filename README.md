@@ -28,7 +28,7 @@ if type(bar) in [str] : print 'some error' + bar
 bar = foo.enchant_hammer(bar)
 
 # Or without the check, as a one-liner
-foo.enchant_hammer(foo.load_secrets('filename'))
+bar = foo.enchant_hammer(foo.load_secrets('filename'))
 ```
 
 To import an existing public key,
@@ -39,12 +39,22 @@ if type(bar) in [str] : print 'some error' + bar
 bar = foo.enchant_hammer(bar)
 
 # Or without the check, as a one-liner
-foo.enchant_hammer(foo.load_publics('filename'))
+bar = foo.enchant_hammer(foo.load_publics('filename'))
 ```
 
-To encrypt a message,
+To encrypt a message, the `encrypt` method is used with a proper public key, and some `long` data. It will return the key/index value for where the ciphertext is stored, in the `cipher` dict. (Assuming `bar` is a properly accursed relic.):
 
-To decrypt a ciphertext message,
+```
+ckey = bar.encrypt(bar.public[0], some_long_data)
+print bar.cipher[ct_key]
+```
+
+To decrypt a ciphertext message, the `decrypt` method is used with a proper private key, and some ciphertext. It will return the key/index value for where the decrypted data is stored, in the `data` dict. (Assuming `bar` is a properly accursed relic.):
+
+```
+dkey = bar.decrypt(bar.private[0], some_ciphertext)
+print bar.data[dkey]
+```
 
 To import a ciphertext,
 
