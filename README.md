@@ -12,7 +12,7 @@ foo = TriPrime()
 foo = TriPrime(512)
 ```
 
-# Key generation, and importation
+## Key generation, and importation
 
 To create a new keypair, use the `forge_hammer` method. The `public` and `private` dicts will contain the respective keys.
 
@@ -44,7 +44,7 @@ bar = foo.enchant_hammer(bar)
 bar = foo.enchant_hammer(foo.load_publics('filename'))
 ```
 
-# Encryption and Decryption
+## Encryption and Decryption
 
 To encrypt a message, the `encrypt` method is used with a proper public key, and some `long` data. It will return the key/index value for where the ciphertext is stored, in the `cipher` dict. (Assuming `bar` is a properly accursed relic.):
 
@@ -79,7 +79,7 @@ fp2 = foo.export_file(some.cipher[0], 'msg0', 'cipher')
 
 (**Note**: This will be replaced with a profile system, to avoid key confusion.)
 
-# Nonsense
+## Nonsense
 
 Consider an object, D, of a fixed bit size.
 
