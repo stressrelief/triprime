@@ -12,6 +12,8 @@ foo = TriPrime()
 foo = TriPrime(512)
 ```
 
+# Key generation, and importation
+
 To create a new keypair, use the `forge_hammer` method. The `public` and `private` dicts will contain the respective keys.
 
 ```
@@ -42,6 +44,8 @@ bar = foo.enchant_hammer(bar)
 bar = foo.enchant_hammer(foo.load_publics('filename'))
 ```
 
+# Encryption and Decryption
+
 To encrypt a message, the `encrypt` method is used with a proper public key, and some `long` data. It will return the key/index value for where the ciphertext is stored, in the `cipher` dict. (Assuming `bar` is a properly accursed relic.):
 
 ```
@@ -56,9 +60,22 @@ dkey = bar.decrypt(bar.private[0], some_ciphertext)
 print bar.data[dkey]
 ```
 
-To import a ciphertext,
+To import a ciphertext, the `load_incoming` method is provided. With a valid file name, or list of valid file names, it will attempt to load the specified ciphertext files (in the `incoming` subdirectory) into an instance of `anvil`. The `anvil` instance is returned with the ciphertext files loaded, in order, in the `cipher` dict.
 
-To export a key, or ciphertext file,
+```
+bar = foo.load_incoming(['foo', 'bar'])
+print bar.cipher[0]
+```
+
+To export a key, or ciphertext file, the `export_file` is used. Given valid `filedata`, (such as a public key, ciphertext, etc.) a valid file name, and a valid file type (public, private, cipher etc.) the method will export the file. This method returns a string pointing to the directory location of the file written.
+
+```
+fp = foo.export_file(some.public[0], 'ex00', 'public')
+print fp
+
+fp1 = foo.export_file(some.private[0], 'ex00', 'private')
+fp2 = foo.export_file(some.cipher[0], 'msg0', 'cipher')
+```
 
 (**Note**: This will be replaced with a profile system, to avoid key confusion.)
 
