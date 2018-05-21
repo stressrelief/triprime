@@ -38,7 +38,7 @@ def str2long( x ) :
 #
 #
 class EncryptConMan ( ) : # Context Manager... not... dammit!
-    def __init__ ( self, pubkey, target, size=VALID_SIZES[0] ) :
+    def __init__ ( self, size=VALID_SIZES[0] ) :
         if size not in VALID_SIZES : return DERP[0]
         # Assign known P0 and setup attributes
         self.P0 = PRIMES[VALID_SIZES.index(size)]
