@@ -1,7 +1,15 @@
 
 #TODO Work file
 
-Separate hemorrhaging Triprime into keyforge, and client
+~~Separate hemorrhaging Triprime into keyforge, and client~~
+
+Proper metaclass impl.
+
+Separate enc/dec functionality from hammer, into 2 independent modules
+
+Separate export/import functionality from anvil
+
+Profile struct and module
 
 CLI interface
 
