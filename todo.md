@@ -29,6 +29,12 @@ Implement symmetric cipher and hash suites
 
 New key/file format
 
-Continue testing on cipher/key encapsulation, and "the 3rd and 4th kinds of keys"
+~~Continue testing on cipher/key encapsulation, and "the 3rd and 4th kinds of keys"~~
+
+Define new protocol design for multi-party key agreement protocol (Default to fortune proto but new is better... right?)
+
+Test bootstrapping, and other homomorphic properties (Simple addition voting via a multi key, and issued "ballots." ZKP proofing between a distributed "Victor" and an anonymous "Peggy". Threshhold encryption tests, with selected key poisoning.)
 
 **Upgrade to Python 3.6 for secrets**
+
+Begin research on embedding the "Ouroboros" (Basically, getting multiple nodes to sync/run the "client" sw, then getting that distributed execution network to load a new distributed node/client.)
