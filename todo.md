@@ -1,5 +1,4 @@
-
-#TODO Work file
+# TODO Work file
 
 ~~Separate hemorrhaging Triprime into keyforge, and client~~
 
@@ -33,7 +32,7 @@ New key/file format
 
 ~~Continue testing on cipher/key encapsulation, and "the 3rd and 4th kinds of keys"~~
 
-##R & D & D
+## R & D & D
 
 Define new protocol design for multi-party key agreement protocol (Default to fortune proto but new is better... right?)
 
