@@ -6,9 +6,9 @@
 
 Proper metaclass impl.
 
-Separate enc/dec functionality from hammer, into 2 independent modules
+~~Separate enc/dec functionality from hammer, into 2 independent modules~~
 
-Separate export/import functionality from anvil
+~~Separate export/import functionality from anvil~~
 
 Profile struct and module
 
@@ -48,7 +48,7 @@ Continue research into a unified function, for all nodes, limiting the surface a
 
 *This small section of code would be over 50-90% of the node runtime code.*
 
-*This code must have a minimum branch path... it's execution should be constant, regardless of operation.*
+*This code must have a minimum branch path... its execution should be constant, regardless of operation.*
 
 *Due to the above requirement, it will have to perform some additional basic homomorphic operations, mostly when they are not needed.*
 
