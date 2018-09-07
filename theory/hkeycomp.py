@@ -59,3 +59,59 @@ def test2 ( x, y ) : # x integer as test0; y list of 4 values as test1
     if ybl > xbl :
         y[0] -= 1
     return y
+
+def test3 ( x, y ) :
+    if type(y) != list : return "E0"
+    if len(y) != 4 : return "E1"
+    if test1(y) > x : return "E2"
+    # Now we can work with a y product that is less than x
+    D = {} # A new dict to store differentials for different y products
+    Y = y[::] # A copy of y to reference
+    r = [ (i / 2)+1 for i in y ]
+    for i in range(0, r[3]) :
+        D[x - test1(y)] = y
+        print y
+        y[3] += 1
+        for i in range(0, r[2]) :
+            D[x - test1(y)] = y
+            print y
+            y[2] += 1
+            for i in range(0, r[1]) :
+                D[x - test1(y)] = y
+                print y
+                y[1] += 1
+                for i in range(0, r[0]) :
+                    D[x - test1(y)] = y
+                    print y
+                    y[0] += 1
+                    #
+                #
+            #
+        #
+    #
+    return D
+
+def test4 ( x, y, z ) :
+    #Provide the target value to compress, x...
+    #the high exponent list, y, and minimum exponent list z
+    if type(y) != list : return "E0"
+    if type(z) != list : return "E0"
+    if len(y) != 4 : return "E1"
+    if len(z) != 4 : return "E1"
+    if test1(z) > x : return "E2"
+    #All the inputs are somewhat sane
+    ret = {}
+    for i in range(z[3],y[3]) :
+        for j in range(z[2],y[2]) :
+            for k in range(z[1],y[1]) :
+                for l in range(z[0],y[0]) :
+                    # 2's exponent
+                    w = test1([l,k,j,i])
+                    if w < x :
+                        ret[ x - w ] = (long(x-w).bit_length(),(l,k,j,i), w)
+                #
+            #
+        #
+    best = min(ret)
+    print(ret[best])
+    return ret
