@@ -122,3 +122,14 @@ The "**y**" value can be modified directly, with standard arithmetic. However, w
 
 62 * 5 = 310 mod 7 = 2    <---
 ```
+
+But...
+
+```
+3 + 28 = 31
+31 * 2 = 62
+62 + 1 = 63   <---
+63 * 4 = 252 mod 7 = 0
+```
+
+(Enough strange witchcraft for tonight.)
