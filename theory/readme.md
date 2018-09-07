@@ -61,3 +61,27 @@ Which is incorrect... but:
 ```
 9 mod 7 = 2
 ```
+
+## Infinitely Padded Data!
+
+As long as we are aware of our modulus, we know we can add that value (or a multiple of it) to any data integer we input, in order to get that data out of our modular multiplicative inverse operations, as above:
+
+```
+Pad? (not really)
+data = 3
+random integer = 4    (for multiplying by 7 as above)
+mmi pair = 2, 4
+
+3 + (7 * 4) = 3 + 28 = 31   (keep in mind, 28 mod 7 = 0)
+31 * 2 = 62
+62 * 4 = 248
+248 mod 7 = 3   (7 * 35 = 245; 248 - 245 = 3)
+```
+
+*cough cough*
+
+```
+3 + (7 * 93457) = 3 + 654199 = 654202
+654202 * (2 * 4) = 654202 * 8 = 5233616   (might as well multiply the inverses together)
+5233616 mod 7 = 3
+```
