@@ -85,3 +85,18 @@ mmi pair = 2, 4
 654202 * (2 * 4) = 654202 * 8 = 5233616   (might as well multiply the inverses together)
 5233616 mod 7 = 3
 ```
+
+## Malleability?
+
+If you notice, if we add 1 to the **y** value, our resulting modular reduction will be 1 higher than the value we started with:
+
+```
+3 + 28 = 31
+31 * 2 = 62
+62 * 4 = 248
+248 + 1 = 249
+249 mod 7 = 4
+```
+
+The **y** value can be modified directly, with standard arithmetic. However, we can also demonstrate this in other ways:
+
