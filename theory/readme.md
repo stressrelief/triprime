@@ -88,15 +88,29 @@ mmi pair = 2, 4
 
 ## Malleability?
 
-If you notice, if we add 1 to the **y** value, our resulting modular reduction will be 1 higher than the value we started with:
+If you notice, if we add 1 to the "**y**" value, our resulting modular reduction will be 1 higher than the value we started with:
 
 ```
 3 + 28 = 31
 31 * 2 = 62
 62 * 4 = 248
-248 + 1 = 249
+248 + 1 = 249   <---
 249 mod 7 = 4
 ```
 
-The **y** value can be modified directly, with standard arithmetic. However, we can also demonstrate this in other ways:
+The "**y**" value can be modified directly, with standard arithmetic. However, we can also demonstrate this in other ways:
 
+```
+3 + 28 = 31
+31 + 1 = 32   <---
+32 * 2 = 64
+64 * 4 = 256
+256 mod 7 = 4
+```
+
+```
+3 + 28 = 31
+31 * 2 = 62
+1 * 2 = 2
+62 + 2 = 64
+```
