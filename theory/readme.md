@@ -1,6 +1,6 @@
-## Theoretical Homomorphic Bullshit:
+# Theoretical Homomorphic Bullshit:
 
-# Basic Modular Arithmetic:
+## Basic Modular Arithmetic:
 
 Our modulus is **7**. This is the limit of numerical values in our "number system."
 
@@ -21,7 +21,7 @@ The only valid values when reducing my a modulus of 7, are the integer values be
 
 Notice there are 7 values, but the largest expressible value is one less than the modulus.
 
-# Modular Multiplicative Inverses
+## Modular Multiplicative Inverses
 
 Still, we will use the modulus of **7**. Instead of addition, we will be determining what values, when multiplied together, will have a value of 1, when modularly reduced. These values have a special modular property that we are interested in. Let's define the MMIs for 7:
 
